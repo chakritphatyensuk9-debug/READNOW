@@ -1,3 +1,1 @@
-export default function Nav() {
-  return <nav>Navigation Placeholder</nav>;
-}
+export default function Nav() { return <nav>Nav Placeholder</nav>; }
