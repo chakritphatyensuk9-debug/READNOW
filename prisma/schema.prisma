@@ -1,0 +1,87 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+enum Role { USER ADMIN }
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  coins     Int      @default(0)
+  createdAt DateTime @default(now())
+  bookmarks Bookmark[]
+  purchases Purchase[]
+  uploads   Upload[]
+  wallet    WalletTx[]
+}
+
+model Series {
+  id        String   @id @default(cuid())
+  title     String
+  author    String
+  genre     String
+  rating    Float    @default(4.5)
+  views     Int      @default(0)
+  coverUrl  String
+  createdAt DateTime @default(now())
+  chapters  Chapter[]
+  bookmarks Bookmark[]
+}
+
+model Chapter {
+  id        String  @id @default(cuid())
+  seriesId  String
+  index     Int
+  title     String
+  price     Int     @default(0)
+  imageSeed String
+  createdAt DateTime @default(now())
+  series    Series  @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  purchases Purchase[]
+}
+
+model Bookmark {
+  id        String @id @default(cuid())
+  userId    String
+  seriesId  String
+  createdAt DateTime @default(now())
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  series    Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  @@unique([userId, seriesId])
+}
+
+model Purchase {
+  id        String @id @default(cuid())
+  userId    String
+  chapterId String
+  coins     Int
+  createdAt DateTime @default(now())
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  @@unique([userId, chapterId])
+}
+
+model WalletTx {
+  id        String  @id @default(cuid())
+  userId    String
+  amount    Int
+  type      String  // TOPUP | ADJUST
+  provider  String?
+  ref       String?
+  note      String?
+  createdAt DateTime @default(now())
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Upload {
+  id        String  @id @default(cuid())
+  userId    String
+  title     String
+  genre     String
+  desc      String?
+  coverUrl  String
+  status    String  @default("PENDING")
+  createdAt DateTime @default(now())
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

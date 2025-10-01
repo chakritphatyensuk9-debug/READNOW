@@ -1,0 +1,28 @@
+:root{ --bg:#0b0d10; --surface:#12151a; --surface2:#181c22; --text:#e9eef5; --muted:#a7b1c2; --brand:#5eead4; --brand2:#8b5cf6 }
+*{box-sizing:border-box}
+body{margin:0;background:
+  radial-gradient(1200px 800px at 10% -10%, rgba(139,92,246,.25), transparent 40%),
+  radial-gradient(1200px 800px at 100% 10%, rgba(94,234,212,.20), transparent 40%), var(--bg);
+  color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Inter, Roboto, 'Noto Sans Thai', sans-serif;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1200px,92vw); margin-inline:auto}
+.nav{position:sticky;top:0;z-index:50; backdrop-filter: blur(12px); background:rgba(18,21,26,.7);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800}
+.logo{width:28px;height:28px;border-radius:9px;background:conic-gradient(from 220deg, var(--brand), var(--brand2))}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+.btn{border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.06); padding:10px 14px;border-radius:12px;color:var(--text)}
+.btn.primary{background:linear-gradient(180deg, rgba(94,234,212,.25), rgba(139,92,246,.25));border-color:rgba(94,234,212,.35)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+@media (max-width:1200px){.grid{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:980px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:540px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{position:relative; background:var(--surface2); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden}
+.thumb{aspect-ratio:3/4; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02))}
+.card-body{padding:10px 10px 12px}
+.title-sm{font-weight:600}
+.meta{color:var(--muted);font-size:.9rem}
+.hero{margin:18px 0; padding:16px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03))}
